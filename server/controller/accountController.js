@@ -18,7 +18,6 @@ function signUp(req, res) {
  function updateProfile(req, res){
     const db = req.app.get('db')
     const {profileId} = req.params;
-
     const profileIndex = db.profiles.data.findIndex(profile => profile.id === parseInt(profileId))
     const profile = [db.profiles.data[profileIndex]];
     Object.assign(...profile, req.body)
@@ -50,6 +49,21 @@ function signUp(req, res) {
     res.status(201).json(db)
  }
 
+ function getProfile(req, res){
+   const db = req.app.get('db')
+   const userEmail = req.query.email
+   const userId = Number(req.query.id)
+   const userIndex = db.users.data.findIndex(res => res.email === userEmail);
+   const userIndexById = db.users.data.findIndex(res => res.id === userId);
+   if(req.query.email){
+      res.status(200).json(db.users.data[userIndex])
+   }else if(req.query.id){
+      res.status(200).json(db.users.data[userIndexById])
+   }else{
+      res.status(200).json(db)
+   }
+ }
+
  
 
  module.exports = {
@@ -57,5 +71,6 @@ function signUp(req, res) {
      debug,
      updateProfile,
      createPost,
-     addComment
+     addComment,
+     getProfile
  }
