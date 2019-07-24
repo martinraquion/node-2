@@ -31,4 +31,5 @@ app.get('/debug', ac.debug)
 app.post('/post', ac.createPost)
 app.post('/comment', ac.addComment)
 app.get('/profile', ac.getProfile)
-
+app.get('/user/:userId/posts', ac.getPosts)
+app.get('/posts/:postId', ac.viewPost)
